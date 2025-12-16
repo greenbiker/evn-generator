@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/evn-generator/static/css/main.0689e8d9.css",
+    "main.js": "/evn-generator/static/js/main.bf217225.js",
+    "index.html": "/evn-generator/index.html",
+    "main.0689e8d9.css.map": "/evn-generator/static/css/main.0689e8d9.css.map",
+    "main.bf217225.js.map": "/evn-generator/static/js/main.bf217225.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0689e8d9.css",
+    "static/js/main.bf217225.js"
+  ]
+}
