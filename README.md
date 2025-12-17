@@ -86,4 +86,12 @@ src/
 
 ## 📄 Licencja
 
-Projekt edukacyjny - wykorzystuj zgodnie z potrzebami.
+Ten projekt jest udostępniony na licencji **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**  
+🔗 https://creativecommons.org/licenses/by-nc/4.0/
+
+✅ Możesz:
+- przeglądać, używać i modyfikować kod
+- wykorzystywać go w celach **niekomercyjnych**
+
+❌ Nie możesz:
+- wykorzystywać projektu ani jego pochodnych w celach **komercyjnych**
