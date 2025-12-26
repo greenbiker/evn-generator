@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { EVN } from '../evn';
+import { useTranslation } from '../i18n/useTranslation';
 
 const EVNValidator: React.FC = () => {
+  const { t } = useTranslation();
   const [evnInput, setEvnInput] = useState<string>('');
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [error, setError] = useState<string>('');
 
   const handleValidate = () => {
     if (!evnInput.trim()) {
-      setError('Wprowadź kod EVN');
+      setError(t.errors.enterEvn);
       setIsValid(null);
       return;
     }
@@ -19,9 +21,7 @@ const EVNValidator: React.FC = () => {
       setError('');
     } catch (err) {
       setIsValid(false);
-      setError(
-        err instanceof Error ? err.message : 'Wystąpił błąd podczas walidacji'
-      );
+      setError(err instanceof Error ? err.message : t.errors.validationError);
     }
   };
 
@@ -33,35 +33,35 @@ const EVNValidator: React.FC = () => {
 
   return (
     <div className="validator">
-      <h2>🔍 Walidator kodów EVN</h2>
+      <h2>{t.validator.title}</h2>
 
       <div className="form-group">
-        <label htmlFor="evnInput">Kod EVN:</label>
+        <label htmlFor="evnInput">{t.validator.enterEvn}:</label>
         <input
           id="evnInput"
           type="text"
           value={evnInput}
           onChange={handleInputChange}
-          placeholder="np. 94 51 2150 054-6 lub 94512150054-6"
+          placeholder={t.validator.placeholder}
           maxLength={17}
         />
       </div>
 
       <button onClick={handleValidate} className="validate-btn">
-        Sprawdź poprawność
+        {t.common.checkValidity}
       </button>
 
       {isValid === true && (
         <div className="result success">
           <span className="success-icon">✅</span>
-          <strong>Kod EVN jest poprawny!</strong>
+          <strong>{t.validator.validEvn}</strong>
         </div>
       )}
 
       {isValid === false && (
         <div className="result error">
           <span className="error-icon">❌</span>
-          <strong>Kod EVN jest niepoprawny</strong>
+          <strong>{t.validator.invalidEvn}</strong>
           {error && <div className="error-details">{error}</div>}
         </div>
       )}

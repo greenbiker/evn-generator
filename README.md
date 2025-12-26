@@ -1,97 +1,104 @@
-# Generator kodów EVN
+# Multilanguage README Pattern
+[![pl](https://img.shields.io/badge/lang-pl-red.svg)](https://github.com/greenbiker/evn-generator/blob/main/README.pl-PL.md)
 
-Aplikacja React TypeScript do generowania, walidacji i dekodowania kodów EVN (European Vehicle Number) używanych w kolejnictwie.
+# EVN Code Generator
 
-## 🚀 Funkcjonalności
+React TypeScript application for generating, validating, and decoding EVN (European Vehicle Number) codes used in railway transport.
 
-- 🎲 Generator kodów EVN
-- 💡 Walidator kodów EVN
-- 🔎 Dekoder kodów EVN
+## 🌍 Language Support
 
-## 📋 Struktura kodów EVN
+- 🇵🇱 **Polish**
+- 🇬🇧 **English**
+- 🇩🇪 **German** 
 
-Kod EVN składa się z 12 cyfr:
+*The application automatically detects your browser language and saves your language preference.*
+
+## 🚀 Features
+
+- 🎲 EVN code generator
+- 💡 EVN code validator  
+- 🔎 EVN code decoder
+- 🌐 Multi-language interface (Polish, English, German)
+- 📱 Responsive design
+
+## 📋 EVN Code Structure
+
+EVN code consists of 12 digits:
 
 ```
-XX XX XXXX XXX-X  (wagony)
-XX XX XXX XXXX-X  (lokomotywy)
+XX XX XXXX XXX-X  (wagons)
+XX XX XXX XXXX-X  (locomotives)
 ```
 
-Gdzie:
-- **Pozycje 1-2**: Typ pojazdu
-- **Pozycje 3-4**: Kod kraju
-- **Pozycje 5-8/7**: Charakterystyki techniczne
-- **Pozycje 9-11/8-11**: Numer seryjny
-- **Pozycja 12**: Cyfra kontrolna
+Where:
+- **Positions 1-2**: Vehicle type
+- **Positions 3-4**: Country code
+- **Positions 5-8/7**: Technical characteristics
+- **Positions 9-11/8-11**: Serial number
+- **Position 12**: Check digit
 
-### Typy pojazdów:
-- **90-98**: Pojazdy trakcyjne (lokomotywy)
-- **99**: Pojazdy specjalne
-- **50-79**: Wagony pasażerskie
-- **00-49, 80-89**: Wagony towarowe
+### Vehicle Types:
+- **90-98**: Traction vehicles (locomotives)
+- **99**: Special vehicles
+- **50-79**: Passenger wagons
+- **00-49, 80-89**: Freight wagons
 
-## 🚦 Uruchomienie
+### Locomotive Types:
+- **0**: Steam locomotive
+- **1**: Electric locomotive
+- **2**: Diesel locomotive
+- **3**: Electric multiple unit
+- **4**: Diesel multiple unit
+- **5**: Battery multiple unit
+- **6**: Hybrid multiple unit
+- **7**: Power car
+- **8**: Shunting locomotive
 
-### Wymagania
+## 🚦 Getting Started
+
+### Requirements
 - Node.js 16+
-- npm lub yarn
+- npm or yarn
 
-### Instalacja
+### Installation
 ```bash
-# Instalacja zależności
+# Install dependencies
 npm install
 
-# Uruchomienie aplikacji w trybie deweloperskim
+# Start development server
 npm start
 
-# Aplikacja zostanie uruchomiona na http://localhost:3000
+# Application will run on http://localhost:3000
 ```
 
-### Budowanie
+### Building
 ```bash
-# Budowanie aplikacji produkcyjnej
+# Build production application
 npm run build
-
 ```
 
-## 🔧 Struktura projektu
+## 📖 Usage Examples
 
-```
-src/
-├── components/           # Komponenty React
-│   ├── EVNGenerator.tsx  # Generator kodów
-│   ├── EVNValidator.tsx  # Walidator kodów
-│   └── EVNDecoder.tsx    # Dekoder kodów
-├── evn.ts               # Klasa EVN z logiką biznesową
-├── types.ts             # Definicje typów TypeScript
-├── countryCodes.ts      # Kody krajów i ich nazwy
-├── App.tsx              # Główny komponent aplikacji
-├── App.css              # Stylizacja
-└── index.tsx            # Punkt wejścia aplikacji
-```
-
-## 📖 Przykłady użycia
-
-### Kod EVN dla polskiej lokomotywy spalinowej:
+### EVN code for Polish diesel locomotive:
 ```
 94 51 2150 0546  → 94 51 215 0054-6
 ```
 
-### Dekodowanie:
-- **Kraj**: Polska (51)
-- **Typ**: Lokomotywa spalinowa (42)
-- **Charakterystyki**: 215
-- **Numer seryjny**: 0054
-- **Cyfra kontrolna**: 6
+### Decoding:
+- **Country**: Poland (51)
+- **Type**: Diesel locomotive (2)
+- **Characteristics**: 215
+- **Serial number**: 0054
+- **Check digit**: 6
 
-## 📄 Licencja
+## 📄 License
 
-Ten projekt jest udostępniony na licencji **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**  
+This project is licensed under **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**  
 🔗 https://creativecommons.org/licenses/by-nc/4.0/
 
-✅ Możesz:
-- przeglądać, używać i modyfikować kod
-- wykorzystywać go w celach **niekomercyjnych**
+✅ You may:
+- view, use and modify the code
+- use it for **non-commercial** purposes
 
-❌ Nie możesz:
-- wykorzystywać projektu ani jego pochodnych w celach **komercyjnych**
+❌ You may not:
+- use the project or its derivatives for **commercial** purposes

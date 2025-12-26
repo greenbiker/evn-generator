@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import EVNGenerator from './components/EVNGenerator';
 import EVNValidator from './components/EVNValidator';
 import EVNDecoder from './components/EVNDecoder';
+import LanguageSelector from './components/LanguageSelector';
+import TranslationProvider from './i18n/TranslationProvider';
+import { useTranslation } from './i18n/useTranslation';
 import './App.css';
 
 type ActiveTab = 'generator' | 'validator' | 'decoder';
 
-function App() {
+const AppContent: React.FC = () => {
   const [activeTab, setActiveTab] = useState<ActiveTab>('generator');
+  const { t } = useTranslation();
 
   const renderActiveComponent = () => {
     switch (activeTab) {
@@ -25,11 +29,13 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>🚂 Generator kodów EVN</h1>
-        <p>
-          Narzędzie do generowania, walidacji i dekodowania kodów EVN dla taboru
-          kolejowego
-        </p>
+        <div className="header-top">
+          <div className="header-content">
+            <h1>{t.header.title}</h1>
+            <p>{t.header.description}</p>
+          </div>
+          <LanguageSelector />
+        </div>
       </header>
 
       <nav className="tabs">
@@ -37,19 +43,19 @@ function App() {
           className={`tab ${activeTab === 'generator' ? 'active' : ''}`}
           onClick={() => setActiveTab('generator')}
         >
-          Generator
+          {t.common.generator}
         </button>
         <button
           className={`tab ${activeTab === 'validator' ? 'active' : ''}`}
           onClick={() => setActiveTab('validator')}
         >
-          Walidator
+          {t.common.validator}
         </button>
         <button
           className={`tab ${activeTab === 'decoder' ? 'active' : ''}`}
           onClick={() => setActiveTab('decoder')}
         >
-          Dekoder
+          {t.common.decoder}
         </button>
       </nav>
 
@@ -57,16 +63,20 @@ function App() {
 
       <footer className="App-footer">
         <p>
-          Generator kodów EVN zgodnych z międzynarodowymi standardami
-          kolejowymi.
+          {t.footer.description}
           <br />
-          <small>
-            EVN (European Vehicle Number) to ujednolicony system numeracji
-            taboru kolejowego w Europie.
-          </small>
+          <small>{t.footer.evnDescription}</small>
         </p>
       </footer>
     </div>
+  );
+};
+
+function App() {
+  return (
+    <TranslationProvider>
+      <AppContent />
+    </TranslationProvider>
   );
 }
 

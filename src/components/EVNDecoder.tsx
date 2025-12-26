@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { EVN } from '../evn';
 import { RollingStockType, LocomotiveType } from '../types';
+import { useTranslation } from '../i18n/useTranslation';
 
 const EVNDecoder: React.FC = () => {
+  const { t } = useTranslation();
   const [evnInput, setEvnInput] = useState<string>('');
   const [decodedEvn, setDecodedEvn] = useState<EVN | null>(null);
   const [error, setError] = useState<string>('');
 
   const handleDecode = () => {
     if (!evnInput.trim()) {
-      setError('Wprowadź kod EVN');
+      setError(t.errors.enterEvn);
       setDecodedEvn(null);
       return;
     }
@@ -20,9 +22,7 @@ const EVNDecoder: React.FC = () => {
       setError('');
     } catch (err) {
       setDecodedEvn(null);
-      setError(
-        err instanceof Error ? err.message : 'Wystąpił błąd podczas dekodowania'
-      );
+      setError(err instanceof Error ? err.message : t.errors.decodingError);
     }
   };
 
@@ -33,48 +33,46 @@ const EVNDecoder: React.FC = () => {
   };
 
   const getVehicleTypeLabel = (type: RollingStockType): string => {
-    const labels = {
-      [RollingStockType.TRACTION_VEHICLE]: 'Pojazd trakcyjny',
-      [RollingStockType.PASSENGER_WAGON]: 'Wagon pasażerski',
-      [RollingStockType.FREIGHT_WAGON]: 'Wagon towarowy',
-      [RollingStockType.SPECIAL_VEHICLE]: 'Pojazd specjalny',
-    };
-    return labels[type];
+    // Mapowanie RollingStockType na klucze tłumaczeń
+    const typeKey =
+      type === RollingStockType.TRACTION_VEHICLE ? 'LOCOMOTIVE' : type;
+    return t.vehicleTypes[typeKey as keyof typeof t.vehicleTypes];
   };
 
   const getLocomotiveTypeLabel = (type: LocomotiveType): string => {
-    const labels = {
-      [LocomotiveType.STEAM_LOCOMOTIVE]: 'Lokomotywa parowa',
-      [LocomotiveType.ELECTRIC_LOCOMOTIVE]: 'Lokomotywa elektryczna',
-      [LocomotiveType.DIESEL_LOCOMOTIVE]: 'Lokomotywa spalinowa',
-      [LocomotiveType.ELECTRIC_MULTIPLE_UNIT]: 'Elektryczny zespół trakcyjny',
-      [LocomotiveType.DIESEL_MULTIPLE_UNIT]: 'Spalinowy zespół trakcyjny',
-      [LocomotiveType.BATTERY_MULTIPLE_UNIT]: 'Akumulatorowy zespół trakcyjny',
-      [LocomotiveType.HYBRID_MULTIPLE_UNIT]: 'Hybrydowy zespół trakcyjny',
-      [LocomotiveType.POWER_CAR]: 'Wagon napędowy',
-      [LocomotiveType.SHUNTING_LOCOMOTIVE]: 'Lokomotywa manewrowa',
+    // Mapowanie z wartości enumeracji do kluczy tłumaczeń
+    const typeMapping: { [key: string]: keyof typeof t.locomotiveTypes } = {
+      '0': 'STEAM_LOCOMOTIVE',
+      '1': 'ELECTRIC_LOCOMOTIVE',
+      '2': 'DIESEL_LOCOMOTIVE',
+      '3': 'ELECTRIC_MULTIPLE_UNIT',
+      '4': 'DIESEL_MULTIPLE_UNIT',
+      '5': 'BATTERY_MULTIPLE_UNIT',
+      '6': 'HYBRID_MULTIPLE_UNIT',
+      '7': 'POWER_CAR',
+      '8': 'SHUNTING_LOCOMOTIVE',
     };
-    return labels[type];
+    return t.locomotiveTypes[typeMapping[type]];
   };
 
   return (
     <div className="decoder">
-      <h2>🔎 Dekoder kodów EVN</h2>
+      <h2>{t.decoder.title}</h2>
 
       <div className="form-group">
-        <label htmlFor="evnInput">Kod EVN:</label>
+        <label htmlFor="evnInput">{t.decoder.enterEvn}</label>
         <input
           id="evnInput"
           type="text"
           value={evnInput}
           onChange={handleInputChange}
-          placeholder="np. 94 51 2150 054-6 lub 94512150054-6"
+          placeholder={t.decoder.placeholder}
           maxLength={17}
         />
       </div>
 
       <button onClick={handleDecode} className="decode-btn">
-        Dekoduj kod EVN
+        {t.common.decode}
       </button>
 
       {error && (
@@ -86,28 +84,28 @@ const EVNDecoder: React.FC = () => {
 
       {decodedEvn && !error && (
         <div className="result">
-          <h3>📋 Informacje o kodzie EVN:</h3>
+          <h3>{t.decoder.evnInfo}</h3>
 
           <div className="evn-info">
             <div className="info-row">
-              <span className="label">Kod oryginalny:</span>
+              <span className="label">{t.decoder.originalCode}</span>
               <span className="value">{decodedEvn.rawEvn}</span>
             </div>
 
             <div className="info-row">
-              <span className="label">Kod sformatowany:</span>
+              <span className="label">{t.decoder.formattedCode}</span>
               <span className="value formatted">{decodedEvn.formattedEvn}</span>
             </div>
 
             <div className="info-row">
-              <span className="label">Kraj:</span>
+              <span className="label">{t.common.country}:</span>
               <span className="value">
                 {decodedEvn.countryName} ({decodedEvn.countryCode})
               </span>
             </div>
 
             <div className="info-row">
-              <span className="label">Typ pojazdu:</span>
+              <span className="label">{t.common.vehicleType}:</span>
               <span className="value">
                 {getVehicleTypeLabel(decodedEvn.vehicleType)}
               </span>
@@ -115,7 +113,7 @@ const EVNDecoder: React.FC = () => {
 
             {decodedEvn.locomotiveType && (
               <div className="info-row">
-                <span className="label">Typ lokomotywy:</span>
+                <span className="label">{t.common.locomotiveType}:</span>
                 <span className="value">
                   {getLocomotiveTypeLabel(decodedEvn.locomotiveType)}
                 </span>
@@ -123,19 +121,21 @@ const EVNDecoder: React.FC = () => {
             )}
 
             <div className="info-row">
-              <span className="label">Charakterystyki techniczne:</span>
+              <span className="label">
+                {t.decoder.technicalCharacteristics}:
+              </span>
               <span className="value">
                 {decodedEvn.technicalCharacteristics}
               </span>
             </div>
 
             <div className="info-row">
-              <span className="label">Numer seryjny:</span>
+              <span className="label">{t.decoder.serialNumber}:</span>
               <span className="value">{decodedEvn.serialNumber}</span>
             </div>
 
             <div className="info-row">
-              <span className="label">Cyfra kontrolna:</span>
+              <span className="label">{t.decoder.checkDigit}:</span>
               <span className="value">{decodedEvn.checkDigit}</span>
             </div>
           </div>
