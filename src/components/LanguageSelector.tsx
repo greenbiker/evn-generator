@@ -12,7 +12,7 @@ const LanguageSelector: React.FC = () => {
   ];
 
   const handleLanguageChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     setLanguage(event.target.value as Language);
   };
