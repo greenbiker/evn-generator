@@ -303,6 +303,36 @@ body {
   opacity: 0.7;
 }
 
+.github-link {
+  margin-top: 15px;
+}
+
+.github-link a {
+  color: white;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.7;
+  transition:
+    opacity 0.3s ease,
+    transform 0.2s ease;
+}
+
+.github-link a:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.github-link svg {
+  width: 24px;
+  height: 24px;
+}
+
+.github-icon {
+  font-size: 24px;
+  display: inline-block;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .App {

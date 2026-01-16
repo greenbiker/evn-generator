@@ -67,6 +67,16 @@ const AppContent: React.FC = () => {
           <br />
           <small>{t.footer.evnDescription}</small>
         </p>
+        <div className="github-link">
+          <a
+            href="https://github.com/greenbiker/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub Profile"
+          >
+            <i className="fab fa-github" style={{ fontSize: '24px' }}></i>
+          </a>
+        </div>
       </footer>
     </div>
   );
