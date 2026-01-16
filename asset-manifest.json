@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/evn-generator/static/css/main.212acf9e.css",
-    "main.js": "/evn-generator/static/js/main.60e24f70.js",
+    "main.css": "/evn-generator/static/css/main.8df53cc8.css",
+    "main.js": "/evn-generator/static/js/main.83963947.js",
     "index.html": "/evn-generator/index.html",
-    "main.212acf9e.css.map": "/evn-generator/static/css/main.212acf9e.css.map",
-    "main.60e24f70.js.map": "/evn-generator/static/js/main.60e24f70.js.map"
+    "main.8df53cc8.css.map": "/evn-generator/static/css/main.8df53cc8.css.map",
+    "main.83963947.js.map": "/evn-generator/static/js/main.83963947.js.map"
   },
   "entrypoints": [
-    "static/css/main.212acf9e.css",
-    "static/js/main.60e24f70.js"
+    "static/css/main.8df53cc8.css",
+    "static/js/main.83963947.js"
   ]
 }
