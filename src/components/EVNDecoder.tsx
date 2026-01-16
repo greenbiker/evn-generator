@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { EVN } from '../evn';
 import { RollingStockType, LocomotiveType } from '../types';
 import { useTranslation } from '../i18n/useTranslation';
+import { getCountryName } from '../countryCodes';
 
 const EVNDecoder: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const [evnInput, setEvnInput] = useState<string>('');
   const [decodedEvn, setDecodedEvn] = useState<EVN | null>(null);
   const [error, setError] = useState<string>('');
@@ -76,9 +77,10 @@ const EVNDecoder: React.FC = () => {
       </button>
 
       {error && (
-        <div className="error">
-          <span className="error-icon">⚠️</span>
-          {error}
+        <div className="result error">
+          <span className="error-icon">❌</span>
+          <strong>{t.errors.decodingError}</strong>
+          <div className="error-details">{error}</div>
         </div>
       )}
 
@@ -100,7 +102,8 @@ const EVNDecoder: React.FC = () => {
             <div className="info-row">
               <span className="label">{t.common.country}:</span>
               <span className="value">
-                {decodedEvn.countryName} ({decodedEvn.countryCode})
+                {getCountryName(decodedEvn.countryIso, language)} (
+                {decodedEvn.countryCode})
               </span>
             </div>
 

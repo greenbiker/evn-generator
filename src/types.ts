@@ -20,7 +20,6 @@ export enum LocomotiveType {
 export interface EVNData {
   countryCode: string;
   countryIso: string;
-  countryName: string;
   technicalCharacteristics: string;
   serialNumber: string;
   checkDigit: string;

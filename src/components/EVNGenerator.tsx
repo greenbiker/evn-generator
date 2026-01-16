@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { EVN } from '../evn';
 import { RollingStockType, LocomotiveType } from '../types';
-import { COUNTRY_CODES, COUNTRY_NAMES } from '../countryCodes';
+import { COUNTRY_CODES, getCountryName } from '../countryCodes';
 import { useTranslation } from '../i18n/useTranslation';
 
 const EVNGenerator: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const [selectedCountry, setSelectedCountry] = useState<string>('');
   const [selectedVehicleType, setSelectedVehicleType] = useState<
     RollingStockType | ''
@@ -71,7 +71,7 @@ const EVNGenerator: React.FC = () => {
           </option>
           {Object.entries(COUNTRY_CODES).map(([code, iso]) => (
             <option key={code} value={code}>
-              {COUNTRY_NAMES[iso]} ({code})
+              {getCountryName(iso, language)} ({code})
             </option>
           ))}
         </select>
@@ -88,7 +88,9 @@ const EVNGenerator: React.FC = () => {
             setSelectedVehicleType(e.target.value as RollingStockType)
           }
         >
-          <option value="">{t.common.random} typ</option>
+          <option value="">
+            {t.common.random} {t.common.vehicleType.toLowerCase()}
+          </option>
           {Object.values(RollingStockType).map(type => (
             <option key={type} value={type}>
               {getVehicleTypeLabel(type)}
@@ -126,9 +128,10 @@ const EVNGenerator: React.FC = () => {
       </button>
 
       {error && (
-        <div className="error">
-          <span className="error-icon">⚠️</span>
-          {error}
+        <div className="result error">
+          <span className="error-icon">❌</span>
+          <strong>{t.errors.generationError}</strong>
+          <div className="error-details">{error}</div>
         </div>
       )}
 

@@ -7,7 +7,7 @@ import {
   InvalidEVNLengthError,
   InvalidEVNLocomotiveTypeError,
 } from './types';
-import { COUNTRY_CODES, COUNTRY_NAMES } from './countryCodes';
+import { COUNTRY_CODES } from './countryCodes';
 
 export class EVN {
   private data: EVNData;
@@ -150,7 +150,6 @@ export class EVN {
 
     const countryCode = evnClean.slice(2, 4);
     const countryIso = COUNTRY_CODES[countryCode] || 'NONE';
-    const countryName = COUNTRY_NAMES[countryIso] || 'Nieznany';
 
     let technicalCharacteristics: string;
     let serialNumber: string;
@@ -177,7 +176,6 @@ export class EVN {
     const data: EVNData = {
       countryCode,
       countryIso,
-      countryName,
       technicalCharacteristics,
       serialNumber,
       checkDigit: evnClean[11],
@@ -192,7 +190,7 @@ export class EVN {
   static random(
     countryCode?: string,
     vehicleType?: RollingStockType,
-    locomotiveType?: LocomotiveType
+    locomotiveType?: LocomotiveType,
   ): string {
     /**
      * Generate a random valid EVN code, optionally for a specific country and vehicle type.
@@ -205,7 +203,7 @@ export class EVN {
       if (countryCode.length === 2 && /^[A-Z]{2}$/.test(countryCode)) {
         // It's an ISO code, find the corresponding numeric code
         const foundCode = Object.entries(COUNTRY_CODES).find(
-          ([, iso]) => iso === countryCode
+          ([, iso]) => iso === countryCode,
         );
         if (foundCode) {
           countryCode = foundCode[0];
@@ -329,9 +327,6 @@ export class EVN {
   }
   get countryIso(): string {
     return this.data.countryIso;
-  }
-  get countryName(): string {
-    return this.data.countryName;
   }
   get technicalCharacteristics(): string {
     return this.data.technicalCharacteristics;
